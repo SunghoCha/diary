@@ -60,13 +60,6 @@
 		response.sendRedirect("/diary/diaryCalendar.jsp");
 	}
 	
-	
-	
-	// DB 연결 해제
-
-	con.close();
-
-	
 	String imgUrl = "";
 	String weatherStr = "";
 	if (diaryResultSet.getString("weather").equals("맑음")) {
@@ -127,6 +120,35 @@
     		color: white;
     		margin: 0 auto;
     	}
+		#margin-button {
+			width:70px;
+			height:115px;
+		}
+    	.align-pp {
+    		position: relative;
+    		box-sizing: border-box;
+    	}
+    	    	
+    	.align-cc {
+    		position: absolute;
+    		margin : 0;
+    		width : 20%;
+    		height : 20%;
+    		/* top:calc(100% - 81px); left:calc(100% - 68px); */
+    		left:calc(100% - 70px); top:calc(0px);
+    		box-sizing: border-box;
+    	}
+    	.size-area {
+    		width :100%;
+    		height :100%;
+    		margin : 0;
+    		box-sizing: border-box;
+    	}
+		.btn-align {
+			vertical-align: middle;
+			text-align: center;
+			line-height: 1;
+		}
     </style>
 </head>
 <body>
@@ -152,10 +174,44 @@
 		        <li><a href="/diary/updateDiaryForm.jsp?diaryDate=<%=diaryDate%>">Update</a></li>
 		        <li><a href="/diary/deleteDiaryAction.jsp?diaryDate=<%=diaryDate%>">Delete</a></li>
        		</ul>
+    
+    <!-- 댓글 추가 폼 -->
+    <div>
+    	<form class="align-pp" method="post" action="/diary/addCommentAction.jsp">
+    		<input type="hidden" name="diaryDate" value='<%=diaryDate%>'>
+    		
+    		<textarea class="size-area" rows="7" cols="50" name="memo"></textarea>
+    		<button class="align-cc" id="margin-button" type="submit">댓글입력</button>	
+    		
+    	</form>
+    </div>
+    <!-- 댓글 리스트 -->
+    <%
+    	int commentCurrentPage = 1;
+    	String sql2 = "SELECT comment_no commentNo, memo, create_date createDate from comment where diary_date = ?";
+    	PreparedStatement stmt2 = null;
+    	ResultSet rs2 = null;
+    	
+    	stmt2 = con.prepareStatement(sql2);
+    	stmt2.setString(1, diaryDate);
+    	rs2 = stmt2.executeQuery();
+    %>
+    <table border="1">
+    <%
+    	while(rs2.next()) {
+    %>		
+    	<tr>
+    		<td><%=rs2.getString("memo")%></td>
+    		<td style="font-size: 10px"><%=rs2.getString("createDate")%></td>
+    		<td><a class="custom-btn btn-8 btn-align" href="/diary/deleteCommentAction.jsp?commentNo=<%=rs2.getInt("commentNo")%>&diaryDate=<%=diaryDate%>">삭제</a></td>
+    	</tr>
+    <%
+    	}
+    %>
+    </table>
     </main>
     <footer>
         <p>2024 &copy; Copyrights My blog. All rights reserved.</p>
     </footer>
 </body>
-
 </html>
