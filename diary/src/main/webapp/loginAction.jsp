@@ -8,7 +8,7 @@
 	// diary.login.my.session => 'OFF' => redirect(loginForm.jsp);
 	//=============== include isLoggedIn.jsp start ==========================
 	// DB 연결
-	Connection con = null;
+/* 	Connection con = null;
 	PreparedStatement findSessionPsmt = null;
 	ResultSet sessionResultSet = null;
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -39,7 +39,11 @@
 		
 		response.sendRedirect("/diary/diaryCalendar.jsp");
 		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return 사용
-	}
+	} */
+	
+	// 0.로그인 (인증) 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	
 	//=============== isLoggedIn.jsp end ==========================
 	// 1. 요청값 분석
 	request.setCharacterEncoding("utf-8");

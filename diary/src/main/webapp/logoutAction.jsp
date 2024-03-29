@@ -2,6 +2,13 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
+	//session.removeAttribute("loginMember");
+
+	session.invalidate();
+	response.sendRedirect("/diary/loginForm.jsp");
+%>
+
+<%
 	System.out.println("=============== logoutAction ===============");
 
 	Connection con = null;

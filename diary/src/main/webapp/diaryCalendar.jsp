@@ -194,6 +194,7 @@ System.out.println("=============== diaryCalendar ===============");
         <div>
         	<a href="/diary/diaryCalendar.jsp">go to calendar</a>
         	<a href="/diary/diaryList.jsp">go to list</a>
+        	<a href="/diary/startLunch.jsp">go to startLunch</a>
         </div>
         <!-- 이미지를 src로 넣으면 화면 크기에 따라 다르게 보이는 배경이미지 불가능. css background 배경으로 넣어줘야함 -->
         <h1></h1>

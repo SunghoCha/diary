@@ -130,6 +130,7 @@
         <sub-a></sub-a>
         <sub-b></sub-b>
         <!-- 이미지를 src로 넣으면 화면 크기에 따라 다르게 보이는 배경이미지 불가능. css background 배경으로 넣어줘야함 -->
+        <a href="/diary/lunchForm.jsp?lunchDate=<%=diaryDate%>">go to addLunch</a>
         <h1></h1>
         <h2>A <%=weatherStr%> Day's Diary</h2> <!-- 날씨정보 연동-->
         <p class="">about things you don't usually write.</p>

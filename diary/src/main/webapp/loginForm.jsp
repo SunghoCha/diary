@@ -6,10 +6,10 @@
 	// 로그인 (인증) 분기
 	// diary.login.my.session (db -> table -> col)
 	// diary.login.my.session => 'OFF' => redirect(loginForm.jsp);
-	String errMsg = request.getParameter("errMsg");
+ 	String errMsg = request.getParameter("errMsg");
 	System.out.println("[loginForm] errMsg : " + errMsg);
 	//=============== include isLoggedIn.jsp start==========================
-	// DB 연결
+/*	// DB 연결
 	Connection con = null;
 	PreparedStatement findSessionPsmt = null;
 	ResultSet sessionResultSet = null;
@@ -38,6 +38,17 @@
 	if (mySession.equals("ON")) {
 		response.sendRedirect("/diary/diary.jsp");
 		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return 사용
+	} */
+	// 0-1) 로그인(인증) 분기 SESSION 사용으로 변경
+	// 로그인 성공시 세션에 loginMember라는 변수를 만들고 값으로 로그인 아이디를 저장
+	String loginMember = (String)session.getAttribute("loginMember");
+	// session.getAttribute() 찾는 변수가 없으면 null값을 반환한다
+	System.out.println("[loginForm] session-param loginMember : " + loginMember);
+	
+	// loginForm페이지는 로그아웃 상태에서만 출력되는 페이지
+	if (loginMember != null) {
+		response.sendRedirect("/diary/diary.jsp");
+		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용 
 	}
 	//=============== isLoggedIn.jsp end==========================
 	
