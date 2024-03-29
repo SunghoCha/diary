@@ -1,6 +1,15 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	// 로그인 확인
+	System.out.println("[addDiaryAction] session-param loginMember : " + session.getAttribute("loginMember"));
+	if (session.getAttribute("loginMember") == null) {
+	String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인을 먼저 해주세요", "utf-8");
+	response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);
+	return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return 사용
+	}
+		
 	// 요청 파라미터 가져오기
 	String diaryDate = request.getParameter("diaryDate");
 	String title = request.getParameter("title");
@@ -17,6 +26,9 @@
 	PreparedStatement psmt = null;
 	con = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	System.out.println("[addDiaryAction] DB 연결 성공");
+
+		
+	
 	// 쿼리 실행
 	String query = "INSERT INTO diary(diary_date, title, weather, content, update_date, create_date) VALUES(?, ?, ?, ?, NOW(), NOW());";
 	psmt = con.prepareStatement(query);

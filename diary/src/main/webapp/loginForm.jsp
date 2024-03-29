@@ -6,6 +6,14 @@
 	// 로그인 (인증) 분기
 	// diary.login.my.session (db -> table -> col)
 	// diary.login.my.session => 'OFF' => redirect(loginForm.jsp);
+	// session값에 따른 리다이렉트
+	if (session.getAttribute("loginMember") != null) {
+		System.out.println("[loginForm] 이미 로그인한 상태입니다.");
+		String errMsg = URLEncoder.encode("이미 로그인 상태이므로 캘린더 창으로 이동", "utf-8");
+		response.sendRedirect("/diary/diaryCalendar.jsp");
+		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return 사용
+	}
+	
  	String errMsg = request.getParameter("errMsg");
 	System.out.println("[loginForm] errMsg : " + errMsg);
 	//=============== include isLoggedIn.jsp start==========================

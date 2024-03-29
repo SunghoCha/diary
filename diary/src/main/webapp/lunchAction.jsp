@@ -3,6 +3,13 @@
 <%@page import="java.net.*"%>
 <%
 	// include isLoggedIn.jsp
+		// 로그인 확인
+	System.out.println("[lunchAction] session-param loginMember : " + session.getAttribute("loginMember"));
+	if (session.getAttribute("loginMember") == null) {
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인을 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);
+		return;
+	}
 %>
 <% 
 	String lunchDate = request.getParameter("lunchDate");
@@ -18,6 +25,9 @@
 	
 	con = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	System.out.println("[lunchAction] DB 연결 성공");
+	
+
+	
 	String query = "INSERT INTO lunch(lunch_date, menu, create_date, update_date) VALUES(?, ?, NOW(), NOW())";
 	psmt = con.prepareStatement(query);
 	psmt.setString(1, lunchDate);
