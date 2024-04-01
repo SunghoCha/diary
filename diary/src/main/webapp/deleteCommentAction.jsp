@@ -42,13 +42,3 @@
 		response.sendRedirect("/diary/diaryOne.jsp?diaryDate=" + diaryDate);
 	}
 %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-</head>
-<body>
-	
-</body>
-</html>
